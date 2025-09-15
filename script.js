@@ -1,6 +1,6 @@
-const apiKey = "2ed76ff11c4279085164cf2a6dde9342"; // your API key
+const apiKey = "2ed76ff11c4279085164cf2a6dde9342"; // your OpenWeatherMap API key
 
-// ✅ Weather by city
+// ✅ Get weather by city
 async function getWeather() {
   const city = document.getElementById("cityInput").value;
   if (!city) {
@@ -11,8 +11,8 @@ async function getWeather() {
   fetchWeather(url);
 }
 
-// ✅ Weather by current location
-function getWeatherByLocation() {
+// ✅ Get weather by current location
+function getLocationWeather() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
