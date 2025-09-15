@@ -33,6 +33,7 @@ button {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  margin-top: 5px;
 }
 
 button:hover {
