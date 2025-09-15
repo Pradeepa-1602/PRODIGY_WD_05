@@ -1,8 +1,37 @@
-async function getWeather() {
-  const apiKey = "2ed76ff11c4279085164cf2a6dde9342"; // your API key
-  const city = document.getElementById("cityInput").value;
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+const apiKey = "2ed76ff11c4279085164cf2a6dde9342"; // your API key
 
+// ✅ Weather by city
+async function getWeather() {
+  const city = document.getElementById("cityInput").value;
+  if (!city) {
+    alert("Please enter a city name");
+    return;
+  }
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  fetchWeather(url);
+}
+
+// ✅ Weather by current location
+function getWeatherByLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        fetchWeather(url);
+      },
+      () => {
+        document.getElementById("weatherResult").innerHTML = `<p>⚠️ Unable to fetch location</p>`;
+      }
+    );
+  } else {
+    alert("Geolocation not supported in your browser.");
+  }
+}
+
+// ✅ Fetch weather from API
+async function fetchWeather(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
